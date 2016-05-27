@@ -6,8 +6,11 @@ from builtins import *  # NOQA
 from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
+import sys
 import argparse
 import json
+
+import requests
 
 from . import jsonshim
 from . import lsstsw
@@ -32,6 +35,8 @@ def run_post_qa():
     job_json.update(jenkins.json)
 
     print(json.dumps(job_json, indent=2, sort_keys=True))
+    upload_json(job_json, api_url=args.api_url,
+                api_user=args.api_user, api_password=args.api_password)
 
 
 def parse_args():
@@ -46,4 +51,27 @@ def parse_args():
         dest='qa_json_path',
         required=True,
         help='Filename of QA JSON output file')
+    parser.add_argument(
+        '--api-url',
+        dest='api_url',
+        required=True,
+        help='URL of SQuaSH API endpoint for job submission')
+    parser.add_argument(
+        '--api-user',
+        dest='api_user',
+        required=True,
+        help='Username for SQuaSH API')
+    parser.add_argument(
+        '--api-password',
+        dest='api_password',
+        required=True,
+        help='Password for SQuaSH API')
     return parser.parse_args()
+
+
+def upload_json(job_json, api_url, api_user, api_password):
+    """Upload Job json document to SQuaSH through POST /api/jobs/ endpoint."""
+    r = requests.post(api_url, auth=(api_user, api_password), json=job_json)
+    print(r.status_code)
+    if r.status_code != 201:
+        sys.exit(1)
