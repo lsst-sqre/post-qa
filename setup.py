@@ -39,7 +39,7 @@ setup(
     ],
     keywords='lsst',
     packages=find_packages(exclude=['docs', 'tests*', 'data']),
-    install_requires=['future', 'requests'],
+    install_requires=['future', 'requests', 'GitPython'],
     tests_require=['pytest', 'pytest-cov', 'pytest-flake8',
                    'pytest-mock', 'responses', 'numpy'],
     # package_data={},
