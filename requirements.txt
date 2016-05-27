@@ -1,6 +1,7 @@
 requests==2.10.0
 GitPython==2.0.3
 future==0.15.2
+pytz==2016.4
 pytest==2.9.1
 pytest-cov==2.2.1
 pytest-flake8==0.2

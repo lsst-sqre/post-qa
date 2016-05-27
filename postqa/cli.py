@@ -11,6 +11,7 @@ import json
 
 from . import jsonshim
 from . import lsstsw
+from . import jenkinsenv
 
 
 def run_post_qa():
@@ -25,6 +26,11 @@ def run_post_qa():
     # Add 'packages' sub-document
     lsstsw_install = lsstsw.Lsstsw(args.lsstsw_dirname)
     job_json.update(lsstsw_install.json)
+
+    # Add metadata from the CI environment
+    jenkins = jenkinsenv.JenkinsEnv()
+    job_json.update(jenkins.json)
+
     print(json.dumps(job_json, indent=2, sort_keys=True))
 
 
