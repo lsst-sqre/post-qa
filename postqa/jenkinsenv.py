@@ -23,8 +23,8 @@ class JenkinsEnv(object):
         """
         return {
             'date': datetime.now(pytz.utc).isoformat(),
-            'ci_name': os.getenv('DATASET', None),
-            'ci_id': os.getenv('BUILD_ID', None),
-            'ci_url': os.getenv('BUILD_URL', None),
+            'ci_name': os.getenv('DATASET', 'demo'),
+            'ci_id': os.getenv('BUILD_ID', 'demo'),
+            'ci_url': os.getenv('BUILD_URL', 'https://example.com'),
             'status': 0,
         }
