@@ -74,4 +74,5 @@ def upload_json(job_json, api_url, api_user, api_password):
     r = requests.post(api_url, auth=(api_user, api_password), json=job_json)
     print(r.status_code)
     if r.status_code != 201:
+        print(r.json())
         sys.exit(1)
