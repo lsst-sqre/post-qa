@@ -23,6 +23,17 @@ Command Line Interface
   usage: post-qa [-h] --lsstsw LSSTSW_DIRNAME --qa-json QA_JSON_PATH --api-url
                  API_URL --api-user API_USER --api-password API_PASSWORD
   
+  Upload JSON from validate_drp to the SQuaSH API's
+  job ingest endpoint, usually ``/api/jobs/``.
+  
+  This script is meant to be run from a Jenkins CI environment
+  and uses the following environment variables:
+  
+  - ``DATASET``: the name of the dataset processed by validate_drp
+  - ``BUILD_ID``
+  - ``BUILD_URL``
+  
+  
   optional arguments:
     -h, --help            show this help message and exit
     --lsstsw LSSTSW_DIRNAME

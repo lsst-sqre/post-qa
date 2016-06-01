@@ -16,6 +16,11 @@ def shim_validate_drp(vdrp_json,
 
     This makes a full job document, but only populates the ``measurements``
     field.
+
+    .. note::
+
+       This function does not currently validate the JSON it processes,
+       either as input or output.
     """
     job_json = {}
 

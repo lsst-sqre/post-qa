@@ -40,7 +40,18 @@ def run_post_qa():
 
 
 def parse_args():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="""Upload JSON from validate_drp to the SQuaSH API's
+job ingest endpoint, usually ``/api/jobs/``.
+
+This script is meant to be run from a Jenkins CI environment
+and uses the following environment variables:
+
+- ``DATASET``: the name of the dataset processed by validate_drp
+- ``BUILD_ID``
+- ``BUILD_URL``
+        """,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
         '--lsstsw',
         dest='lsstsw_dirname',
