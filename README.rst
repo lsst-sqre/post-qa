@@ -29,9 +29,11 @@ Command Line Interface
   This script is meant to be run from a Jenkins CI environment
   and uses the following environment variables:
   
-  - ``DATASET``: the name of the dataset processed by validate_drp
-  - ``BUILD_ID``
-  - ``BUILD_URL``
+  - ``BUILD_ID`` : ID in the ci system
+  - ``BUILD_URL``: ci page with information about the build
+  - ``PRODUCT``: the name of the product built, in this case 'validate_drp'
+  - ``dataset``: the name of the dataset processed by validate_drp
+  - ``label`` : the name of the platform where it runs 
   
   
   optional arguments:
