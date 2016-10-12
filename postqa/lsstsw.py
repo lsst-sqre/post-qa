@@ -5,9 +5,11 @@ from __future__ import (division, absolute_import, print_function,
 from builtins import *  # NOQA
 from future.standard_library import install_aliases
 install_aliases()  # NOQA
+from past.builtins import basestring
 
 import os
 import git
+import yaml
 
 from .pkgdata import Manifest
 
@@ -23,6 +25,7 @@ class Lsstsw(object):
     def __init__(self, dirname):
         super(Lsstsw, self).__init__()
         self._dirname = dirname
+        self._load_repos_yaml()
 
     @property
     def manifest_path(self):
@@ -38,6 +41,19 @@ class Lsstsw(object):
         repo = git.Repo(self.package_repo_path(package_name))
         return repo.active_branch.name
 
+    def package_repo_url(self, package_name):
+        """URL of the package's Git repository.
+
+        This data is obtained from lsstsw/etc/repos.yaml.
+        """
+        s = self._repos[package_name]
+        if isinstance(s, basestring):
+            return s
+        else:
+            # For packages that have sub-documents, rather than the value
+            # as the URL. See repos.yaml for format documentation.
+            return s['url']
+
     @property
     def json(self):
         """Job JSON document, as a `dict` containing a `packages` field."""
@@ -49,4 +65,14 @@ class Lsstsw(object):
         for pkg_doc in job_json['packages']:
             pkg_doc['git_branch'] = self.package_branch(pkg_doc['name'])
 
+        # Insert git repo URLs
+        for pkg_doc in job_json['packages']:
+            pkg_doc['git_url'] = self.package_repo_url(pkg_doc['name'])
+
         return job_json
+
+    def _load_repos_yaml(self):
+        """Load lsstsw's repos.yaml."""
+        yaml_path = os.path.join(self._dirname, 'etc', 'repos.yaml')
+        with open(yaml_path) as f:
+            self._repos = yaml.safe_load(f)
