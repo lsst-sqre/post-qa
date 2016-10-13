@@ -10,8 +10,10 @@ import os
 import io
 import pkg_resources
 import pytest
+import jsonschema
 
 from postqa.pkgdata import Manifest
+from postqa.schemas import load_squash_packages_schema
 
 
 def load_test_data(filename):
@@ -47,3 +49,13 @@ def test_manifest(manifest):
             if p['name'] == known_name:
                 assert p['git_commit'] == known_commit
                 assert p['build_version'] == known_version
+
+
+def test_manifest_schema(manifest):
+    """Validate the schema of the 'packages' json sub-document."""
+    m = Manifest(manifest)
+    job_json = m.json
+
+    schema = load_squash_packages_schema()
+
+    jsonschema.validate(job_json['packages'], schema)
