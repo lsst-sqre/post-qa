@@ -15,7 +15,8 @@ from postqa.pkgdata import Manifest
 
 
 def load_test_data(filename):
-    resource_args = (__name__, os.path.join('../test_data/', filename))
+    resource_args = (__name__,
+                     os.path.join('../test_data/lsstsw/build', filename))
     assert pkg_resources.resource_exists(*resource_args)
     data_str = pkg_resources.resource_string(*resource_args).decode('utf-8')
     return data_str
