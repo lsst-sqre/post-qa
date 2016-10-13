@@ -47,7 +47,7 @@ setup(
                       'jsonschema>=2.5.1'],
     tests_require=['pytest', 'pytest-cov', 'pytest-flake8',
                    'pytest-mock', 'responses', 'numpy'],
-    # package_data={},
+    package_data={'postqa': ['schemas/*.json']},
     entry_points={
         'console_scripts': [
             'post-qa = postqa.cli:run_post_qa',
