@@ -11,8 +11,10 @@ import json
 import pkg_resources
 import pytest
 from numpy.testing import assert_approx_equal
+import jsonschema
 
 from postqa.jsonshim import shim_vdrp_measurement, shim_validate_drp
+from postqa.schemas import load_squash_measurements_schema
 
 
 def load_test_data(filename):
@@ -39,6 +41,7 @@ def expected_cfht_r_job():
 
 
 def test_shim_validate_drp(vdrp_cfht_output_r):
+    # FIXME deprecated by test_measurements_schema()
     job_json = shim_validate_drp(vdrp_cfht_output_r)
     assert 'measurements' in job_json
     assert len(job_json['measurements']) == 3
@@ -59,3 +62,10 @@ def test_shim_vdrp_measurement_vdrp(vdrp_cfht_output_r,
                     expected_doc['value'])
                 assert shimmed_doc['metric'] == expected_doc['metric']
                 break
+
+
+def test_measurements_schema(vdrp_cfht_output_r):
+    """Validate the schema of `measurements` json sub-document."""
+    job_json = shim_validate_drp(vdrp_cfht_output_r)
+    schema = load_squash_measurements_schema()
+    jsonschema.validate(job_json['measurements'], schema)
