@@ -8,8 +8,11 @@ install_aliases()  # NOQA
 
 import os
 import pytest
+import jsonschema
 
+import postqa.lsstsw
 from postqa.lsstsw import Lsstsw
+from postqa.schemas import load_squash_packages_schema
 
 
 @pytest.fixture
@@ -42,3 +45,18 @@ def test_package_url(lsstsw_dir):
 
     assert lsstsw.package_repo_url('obs_base') == \
         'https://github.com/lsst-dm/obs_base.git'
+
+
+def test_packages_json_schema(mocker, lsstsw_dir):
+    """Validate the schema of the 'packages' json sub-document."""
+    # mock git.Repo in postqa.lsstsw so that a repo's active branch is master
+    # and doesn't attempt to actually query the repo in the filesystem.
+    mocker.patch('postqa.lsstsw.git.Repo')
+    postqa.lsstsw.git.Repo.return_value.active_branch.name = 'master'
+
+    lsstsw = Lsstsw(lsstsw_dir)
+    job_json = lsstsw.json
+
+    schema = load_squash_packages_schema()
+
+    jsonschema.validate(job_json['packages'], schema)
