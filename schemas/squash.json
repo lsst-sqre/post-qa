@@ -62,6 +62,6 @@
     "ci_dataset": {"type": "string"},
     "ci_label": {"type": "string"},
     "ci_url": {"type": "string", "format": "uri"},
-    "status": {"type": "int", "enum": [0, 1]}
+    "status": {"type": "integer", "enum": [0, 1]}
   }
 }
