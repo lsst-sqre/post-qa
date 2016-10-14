@@ -23,7 +23,6 @@ def run_post_qa():
 
     job_json = build_job_json(args.qa_json_path, args.lsstsw_dirname)
 
-    print(json.dumps(job_json, indent=2, sort_keys=True))
     upload_json(job_json, api_url=args.api_url,
                 api_user=args.api_user, api_password=args.api_password)
 
@@ -40,7 +39,7 @@ and uses the following environment variables:
 - ``BUILD_URL``: ci page with information about the build
 - ``PRODUCT``: the name of the product built, in this case 'validate_drp'
 - ``dataset``: the name of the dataset processed by validate_drp
-- ``label`` : the name of the platform where it runs 
+- ``label`` : the name of the platform where it runs
         """,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
