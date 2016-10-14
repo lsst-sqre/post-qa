@@ -29,12 +29,8 @@ class Manifest(object):
             git_commit = parts[1]
             eups_version = parts[2]
 
-            # this is an assumption
-            git_url = 'https://github.com/lsst/{0}.git'.format(package_name)
-
             pkg_json = {
                 'name': package_name,
-                'git_url': git_url,
                 'git_commit': git_commit,
                 'build_version': eups_version
             }

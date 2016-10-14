@@ -9,7 +9,7 @@ author = 'Jonathan Sick'
 author_email = 'jsick@lsst.org'
 license = 'MIT'
 url = 'https://github.com/lsst-sqre/post-qa'
-version = '1.1.0'
+version = '1.1.1'
 
 
 def read(filename):
@@ -39,7 +39,11 @@ setup(
     ],
     keywords='lsst',
     packages=find_packages(exclude=['docs', 'tests*', 'data']),
-    install_requires=['future', 'requests', 'GitPython', 'pytz'],
+    install_requires=['future',
+                      'requests',
+                      'GitPython',
+                      'pytz',
+                      'pyyaml>=3.12'],
     tests_require=['pytest', 'pytest-cov', 'pytest-flake8',
                    'pytest-mock', 'responses', 'numpy'],
     # package_data={},
