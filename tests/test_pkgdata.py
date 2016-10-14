@@ -10,10 +10,8 @@ import os
 import io
 import pkg_resources
 import pytest
-import jsonschema
 
 from postqa.pkgdata import Manifest
-from postqa.schemas import load_squash_packages_schema
 
 
 def load_test_data(filename):
@@ -32,12 +30,15 @@ def manifest():
 
 
 def test_manifest(manifest):
+    """Test Manifest's parsing against manually-extracted data."""
     m = Manifest(manifest)
 
     job_json = m.json
     assert 'packages' in job_json
     assert isinstance(job_json['packages'], list)
 
+    # Sample data extracted from test_data/lsstsw/build/manifest/.txt
+    # to ensure that the parsing is accurate.
     known_packages = [
         ('afw',
          'fc355a99abe3425003b0e5fbe1e13a39644b1e95',
@@ -49,13 +50,3 @@ def test_manifest(manifest):
             if p['name'] == known_name:
                 assert p['git_commit'] == known_commit
                 assert p['build_version'] == known_version
-
-
-def test_manifest_schema(manifest):
-    """Validate the schema of the 'packages' json sub-document."""
-    m = Manifest(manifest)
-    job_json = m.json
-
-    schema = load_squash_packages_schema()
-
-    jsonschema.validate(job_json['packages'], schema)

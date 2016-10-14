@@ -48,7 +48,7 @@ setup(
                       'rfc3987==1.3.7',
                       'strict-rfc3339==0.7'],
     tests_require=['pytest', 'pytest-cov', 'pytest-flake8',
-                   'pytest-mock', 'responses', 'numpy'],
+                   'pytest-mock', 'responses'],
     package_data={'postqa': ['schemas/*.json']},
     entry_points={
         'console_scripts': [
