@@ -32,7 +32,7 @@
         "additionalProperties": false,
         "properties": {
           "name": {"type": "string"},
-          "git_url": {"type": "string"},
+          "git_url": {"type": "string", "format": "uri"},
           "git_commit": {"type": "string"},
           "git_branch": {"type": "string"},
           "build_version": {"type": "string"}
@@ -61,7 +61,7 @@
     "ci_name": {"type": "string"},
     "ci_dataset": {"type": "string"},
     "ci_label": {"type": "string"},
-    "ci_url": {"type": "string"},
+    "ci_url": {"type": "string", "format": "uri"},
     "status": {"type": "int", "enum": [0, 1]}
   }
 }
