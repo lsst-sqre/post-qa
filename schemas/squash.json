@@ -56,7 +56,7 @@
   "properties": {
     "measurements": {"$ref": "#/definitions/measurements"},
     "packages": {"$ref": "#/definitions/packages"},
-    "date": {"type": "string"},
+    "date": {"type": "string", "format": "date-time"},
     "ci_id": {"type": "string"},
     "ci_name": {"type": "string"},
     "ci_dataset": {"type": "string"},
