@@ -7,19 +7,11 @@ from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
 import os
-import pytest
 import jsonschema
 
 import postqa.lsstsw
 from postqa.lsstsw import Lsstsw
 from postqa.schemas import load_squash_packages_schema
-
-
-@pytest.fixture
-def lsstsw_dir():
-    """A minimal mock lsstsw/ installation is in /test_data/lsstsw."""
-    return os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '..', 'test_data', 'lsstsw'))
 
 
 def test_manifest_path(lsstsw_dir):
