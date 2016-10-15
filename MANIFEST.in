@@ -1,3 +1,3 @@
 include *.rst
 include LICENSE
-recursive-include schemas *.json
+recursive-include postqa/schemas *.json
