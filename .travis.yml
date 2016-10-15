@@ -14,7 +14,9 @@ matrix:
   #     env: LTD_MASON_BUILD=true
 install:
   - pip install -r requirements.txt
-  - pip install .
+  # An editable install is needed to get coverage and flake8 to work
+  # This isn't ideal since it's not testing a truly 'installed' package
+  - pip install -e .
 script:
   - py.test --cov postqa --flake8
   # - sphinx-build -b html -a -n -W -d docs/_build/doctree docs docs/_build/html
