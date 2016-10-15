@@ -11,9 +11,6 @@ import json
 import pytest
 
 
-pytest_plugins = "pytest_mock", "pytest_cov",
-
-
 @pytest.fixture
 def lsstsw_dir():
     """A minimal mock lsstsw/ installation is in /test_data/lsstsw."""
