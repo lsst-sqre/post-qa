@@ -5,16 +5,18 @@ from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
 import json
-import pkg_resources
+# import pkg_resources
+import pkgutil
 
 
 def load_squash_job_schema():
     """Load JSON schema for a SQUASH job upload."""
-    assert pkg_resources.resource_exists(
-        __name__, 'schemas/squash.json')
-    txt = pkg_resources.resource_string(
-        __name__, 'schemas/squash.json').decode('utf-8')
-    return json.loads(txt)
+    # assert pkg_resources.resource_exists(
+    #     __name__, 'schemas/squash.json')
+    # txt = pkg_resources.resource_string(
+    #     __name__, 'schemas/squash.json').decode('utf-8')
+    txt = pkgutil.get_data(__package__, 'squash.json')
+    return json.loads(txt.decode('utf-8'))
 
 
 def load_squash_measurements_schema():
