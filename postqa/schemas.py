@@ -10,9 +10,10 @@ import pkg_resources
 
 def load_squash_job_schema():
     """Load JSON schema for a SQUASH job upload."""
-    resource_args = (__name__, '../schemas/squash.json')
-    assert pkg_resources.resource_exists(*resource_args)
-    txt = pkg_resources.resource_string(*resource_args).decode('utf-8')
+    assert pkg_resources.resource_exists(
+        __name__, 'schemas/squash.json')
+    txt = pkg_resources.resource_string(
+        __name__, 'schemas/squash.json').decode('utf-8')
     return json.loads(txt)
 
 

@@ -8,6 +8,7 @@ install_aliases()  # NOQA
 
 import os
 import json
+import pkg_resources
 import pytest
 
 
