@@ -1,4 +1,3 @@
 include *.rst
 include LICENSE
-include schemas/*
 recursive-include schemas *.json
