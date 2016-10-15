@@ -49,7 +49,7 @@ setup(
                       'strict-rfc3339==0.7'],
     tests_require=['pytest', 'pytest-cov', 'pytest-flake8',
                    'pytest-mock', 'responses'],
-    # package_data={},
+    package_data = {'postqa': ['*.json']},
     entry_points={
         'console_scripts': [
             'post-qa = postqa.cli:run_post_qa',
