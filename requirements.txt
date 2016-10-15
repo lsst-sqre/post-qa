@@ -9,6 +9,7 @@ pytz==2016.4
 pytest==3.0.3
 pytest-cov==2.4.0
 pytest-mock==1.2
+pytest-flake8==0.7
 responses==0.5.1
 twine==1.6.5
 wheel==0.29.0
