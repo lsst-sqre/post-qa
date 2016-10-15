@@ -14,9 +14,9 @@ matrix:
   #     env: LTD_MASON_BUILD=true
 install:
   - pip install -r requirements.txt
-  - python setup.py develop
+  - pip install .
 script:
-  - py.test -r w
+  - py.test --cov postqa --flake8
   # - sphinx-build -b html -a -n -W -d docs/_build/doctree docs docs/_build/html
 # after_success:
 #   # ltd-mason is a no-op for regular builds with LTD_MASON_BUILD=false
