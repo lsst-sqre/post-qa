@@ -9,7 +9,7 @@ author = 'Jonathan Sick'
 author_email = 'jsick@lsst.org'
 license = 'MIT'
 url = 'https://github.com/lsst-sqre/post-qa'
-version = '1.1.1'
+version = '1.2.0'
 
 
 def read(filename):
@@ -43,10 +43,13 @@ setup(
                       'requests',
                       'GitPython',
                       'pytz',
-                      'pyyaml>=3.12'],
+                      'pyyaml>=3.12',
+                      'jsonschema>=2.5.1',
+                      'rfc3987==1.3.7',
+                      'strict-rfc3339==0.7'],
     tests_require=['pytest', 'pytest-cov', 'pytest-flake8',
-                   'pytest-mock', 'responses', 'numpy'],
-    # package_data={},
+                   'pytest-mock', 'responses'],
+    package_data={'postqa': ['schemas/*.json']},
     entry_points={
         'console_scripts': [
             'post-qa = postqa.cli:run_post_qa',

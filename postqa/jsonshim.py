@@ -40,6 +40,6 @@ def shim_vdrp_measurement(vdrp_doc):
     """
     output_doc = {
         'metric': vdrp_doc['metric']['name'],
-        'value': vdrp_doc['value']['value']
+        'value': vdrp_doc['value']
     }
     return output_doc

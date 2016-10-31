@@ -6,56 +6,66 @@ from builtins import *  # NOQA
 from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
-import os
-import json
-import pkg_resources
 import pytest
-from numpy.testing import assert_approx_equal
+from jsonschema.exceptions import ValidationError
 
-from postqa.jsonshim import shim_vdrp_measurement, shim_validate_drp
-
-
-def load_test_data(filename):
-    resource_args = (__name__, os.path.join('../test_data/', filename))
-    assert pkg_resources.resource_exists(*resource_args)
-    data_str = pkg_resources.resource_string(*resource_args)
-    return data_str
+from postqa.jsonshim import shim_validate_drp
+from postqa.schemas import load_squash_measurements_schema, validate
 
 
 @pytest.fixture()
-def vdrp_cfht_output_r():
-    """test_data/Cfht_output_r.json from validate_drp as a dict."""
-    json_str = load_test_data('Cfht_output_r.json').decode('utf-8')
-    json_dict = json.loads(json_str)
-    return json_dict
+def schema():
+    return load_squash_measurements_schema()
 
 
 @pytest.fixture()
-def expected_cfht_r_job():
-    """test_data/expected_chft_r_job.json as a dict."""
-    json_str = load_test_data('expected_cfht_r_job.json').decode('utf-8')
-    json_dict = json.loads(json_str)
-    return json_dict
+def job_json(vdrp_cfht_output_r):
+    return shim_validate_drp(vdrp_cfht_output_r)
 
 
-def test_shim_validate_drp(vdrp_cfht_output_r):
-    job_json = shim_validate_drp(vdrp_cfht_output_r)
-    assert 'measurements' in job_json
-    assert len(job_json['measurements']) == 3
+def test_measurements_schema(job_json, schema):
+    """Validate the schema of `measurements` json sub-document."""
+    validate(job_json['measurements'], schema)
+
+
+def test_accepted_metrics(vdrp_cfht_output_r, schema):
+    """Ensure only accepted metrics are returned."""
+    accepted_metrics = ['PA1']
+    job_json = shim_validate_drp(vdrp_cfht_output_r,
+                                 accepted_metrics=accepted_metrics)
     for measurement in job_json['measurements']:
-        assert 'metric' in measurement
-        assert 'value' in measurement
+        assert measurement['metric'] in accepted_metrics
 
 
-def test_shim_vdrp_measurement_vdrp(vdrp_cfht_output_r,
-                                    expected_cfht_r_job):
-    for expected_doc in expected_cfht_r_job['measurements']:
-        # get matching vdrp doc
-        for doc in vdrp_cfht_output_r['measurements']:
-            if doc['metric']['name'] == expected_doc['metric']:
-                shimmed_doc = shim_vdrp_measurement(doc)
-                assert_approx_equal(
-                    shimmed_doc['value'],
-                    expected_doc['value'])
-                assert shimmed_doc['metric'] == expected_doc['metric']
-                break
+def test_missing_measurements(vdrp_cfht_output_r):
+    """Test when input has no measurements field."""
+    del vdrp_cfht_output_r['measurements']
+    with pytest.raises(KeyError):
+        shim_validate_drp(vdrp_cfht_output_r)
+
+
+def test_missing_value(vdrp_cfht_output_r):
+    """Test when a measurement is missing its value field."""
+    del vdrp_cfht_output_r['measurements'][0]['value']
+    with pytest.raises(KeyError):
+        shim_validate_drp(vdrp_cfht_output_r)
+
+
+def test_missing_value_validation(job_json, schema):
+    """Ensure schema validation picks up on missing 'value'."""
+    del job_json['measurements'][0]['value']
+    with pytest.raises(ValidationError):
+        validate(job_json['measurements'], schema)
+
+
+def test_missing_metric_validation(job_json, schema):
+    """Ensure schema validation picks up on missing 'metric'."""
+    del job_json['measurements'][0]['metric']
+    with pytest.raises(ValidationError):
+        validate(job_json['measurements'], schema)
+
+
+def test_null_value_validation(job_json, schema):
+    """Ensure schema validation allows values to be null."""
+    job_json['measurements'][0]['value'] = None
+    validate(job_json['measurements'], schema)
