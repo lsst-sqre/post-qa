@@ -15,6 +15,7 @@ import requests
 from . import jsonshim
 from . import lsstsw
 from . import jenkinsenv
+from .schemas import validate
 
 
 def run_post_qa():
@@ -86,6 +87,9 @@ def build_job_json(qa_json_path, lsstsw_dirname):
     # Add metadata from the CI environment
     jenkins = jenkinsenv.JenkinsEnv()
     job_json.update(jenkins.json)
+
+    # Validate
+    validate(job_json)
 
     return job_json
 

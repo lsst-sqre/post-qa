@@ -7,11 +7,12 @@ from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
 import os
-import jsonschema
+import pytest
+from jsonschema.exceptions import ValidationError
 
 import postqa.lsstsw
 from postqa.lsstsw import Lsstsw
-from postqa.schemas import load_squash_packages_schema
+from postqa.schemas import load_squash_packages_schema, validate
 
 
 def test_manifest_path(lsstsw_dir):
@@ -50,5 +51,20 @@ def test_packages_json_schema(mocker, lsstsw_dir):
     job_json = lsstsw.json
 
     schema = load_squash_packages_schema()
+    validate(job_json['packages'], schema)
 
-    jsonschema.validate(job_json['packages'], schema)
+
+def test_uri_validation(mocker, lsstsw_dir):
+    mocker.patch('postqa.lsstsw.git.Repo')
+    postqa.lsstsw.git.Repo.return_value.active_branch.name = 'master'
+
+    lsstsw = Lsstsw(lsstsw_dir)
+    job_json = lsstsw.json
+
+    job_json['packages'][0]['git_url'] = 'blah'
+    print(job_json['packages'])
+
+    schema = load_squash_packages_schema()
+
+    with pytest.raises(ValidationError):
+        validate(job_json['packages'], schema)

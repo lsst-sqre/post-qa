@@ -7,6 +7,21 @@ install_aliases()  # NOQA
 import json
 import pkg_resources
 
+import jsonschema
+
+
+def validate(doc, schema=None):
+    """Validate a document against a schema.
+
+    This function ensures that additional format checkers (for datetime
+    and URIs) are active.
+    """
+    if schema is None:
+        schema = load_squash_job_schema()
+    format_checker = jsonschema.FormatChecker()
+    print(format_checker.checkers)
+    jsonschema.validate(doc, schema, format_checker=format_checker)
+
 
 def load_squash_job_schema():
     """Load JSON schema for a SQUASH job upload."""

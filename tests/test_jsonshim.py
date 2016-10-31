@@ -7,11 +7,10 @@ from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
 import pytest
-import jsonschema
 from jsonschema.exceptions import ValidationError
 
 from postqa.jsonshim import shim_validate_drp
-from postqa.schemas import load_squash_measurements_schema
+from postqa.schemas import load_squash_measurements_schema, validate
 
 
 @pytest.fixture()
@@ -26,7 +25,7 @@ def job_json(vdrp_cfht_output_r):
 
 def test_measurements_schema(job_json, schema):
     """Validate the schema of `measurements` json sub-document."""
-    jsonschema.validate(job_json['measurements'], schema)
+    validate(job_json['measurements'], schema)
 
 
 def test_accepted_metrics(vdrp_cfht_output_r, schema):
@@ -56,17 +55,17 @@ def test_missing_value_validation(job_json, schema):
     """Ensure schema validation picks up on missing 'value'."""
     del job_json['measurements'][0]['value']
     with pytest.raises(ValidationError):
-        jsonschema.validate(job_json['measurements'], schema)
+        validate(job_json['measurements'], schema)
 
 
 def test_missing_metric_validation(job_json, schema):
     """Ensure schema validation picks up on missing 'metric'."""
     del job_json['measurements'][0]['metric']
     with pytest.raises(ValidationError):
-        jsonschema.validate(job_json['measurements'], schema)
+        validate(job_json['measurements'], schema)
 
 
 def test_null_value_validation(job_json, schema):
     """Ensure schema validation allows values to be null."""
     job_json['measurements'][0]['value'] = None
-    jsonschema.validate(job_json['measurements'], schema)
+    validate(job_json['measurements'], schema)
