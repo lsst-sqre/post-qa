@@ -14,7 +14,7 @@ import pytest
 
 @pytest.fixture
 def lsstsw_dir():
-    """A minimal mock lsstsw/ installation is in /test_data/lsstsw."""
+    """A minimal mock lsstsw/ installation is in /tests/data/lsstsw."""
     test_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(test_dir, 'data', 'lsstsw')
 

@@ -17,7 +17,7 @@ def test_manifest(manifest):
     assert 'packages' in job_json
     assert isinstance(job_json['packages'], list)
 
-    # Sample data extracted from test_data/lsstsw/build/manifest/.txt
+    # Sample data extracted from tests/data/lsstsw/build/manifest/.txt
     # to ensure that the parsing is accurate.
     known_packages = [
         ('afw',
