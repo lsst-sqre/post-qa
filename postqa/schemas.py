@@ -19,7 +19,6 @@ def validate(doc, schema=None):
     if schema is None:
         schema = load_squash_job_schema()
     format_checker = jsonschema.FormatChecker()
-    print(format_checker.checkers)
     jsonschema.validate(doc, schema, format_checker=format_checker)
 
 
