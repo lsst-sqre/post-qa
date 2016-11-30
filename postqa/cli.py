@@ -24,8 +24,11 @@ def run_post_qa():
 
     job_json = build_job_json(args.qa_json_path, args.lsstsw_dirname)
 
-    upload_json(job_json, api_url=args.api_url,
-                api_user=args.api_user, api_password=args.api_password)
+    if not args.test:
+        upload_json(job_json, api_url=args.api_url,
+                    api_user=args.api_user, api_password=args.api_password)
+    else:
+        print(json.dumps(job_json, indent=2, sort_keys=True))
 
 
 def parse_args():
@@ -68,6 +71,11 @@ and uses the following environment variables:
         dest='api_password',
         required=True,
         help='Password for SQuaSH API')
+    parser.add_argument(
+        '--test',
+        default=False,
+        action='store_true',
+        help='Print the shimmed JSON rather than uploading it')
     return parser.parse_args()
 
 

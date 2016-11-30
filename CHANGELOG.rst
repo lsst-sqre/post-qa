@@ -2,6 +2,12 @@
 Change Log
 ##########
 
+1.2.1 [2016-11-28]
+==================
+
+- Add ``--test`` option to print the shimmed JSON without uploading it.
+- Update test JSON from ``validate_drp`` based on `DM-7933 <https://jira.lsstcorp.org/browse/DM-7933>`_.
+
 1.2.0 [2016-10-15]
 ==================
 
