@@ -105,7 +105,6 @@ def build_job_json(qa_json_path, lsstsw_dirname):
 def upload_json(job_json, api_url, api_user, api_password):
     """Upload Job json document to SQuaSH through POST /api/jobs/ endpoint."""
     r = requests.post(api_url, auth=(api_user, api_password), json=job_json)
-    print(r.status_code)
+    print('POST {0} status: {1}'.format(api_url, r.status_code))
     if r.status_code != 201:
-        print(r.json())
         sys.exit(1)
