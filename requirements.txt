@@ -1,11 +1,7 @@
-requests==2.10.0
-GitPython==2.0.3
-PyYAML==3.12
-jsonschema==2.5.1
-rfc3987==1.3.7
-strict-rfc3339==0.7
-future==0.15.2
-pytz==2016.4
+--index-url https://pypi.python.org/simple/
+
+-e .
+
 pytest==3.0.3
 pytest-cov==2.4.0
 pytest-mock==1.2
