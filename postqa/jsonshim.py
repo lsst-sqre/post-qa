@@ -15,17 +15,14 @@ def shim_validate_drp(vdrp_json, accepted_metrics):
 
     This makes a full job document, but only populates the ``measurements``
     field.
-
-    .. note::
-
-       This function does not currently validate the JSON it processes,
-       either as input or output.
     """
     job_json = {}
 
     measurements = []
     for vdrp_measurement_doc in vdrp_json['measurements']:
         if vdrp_measurement_doc['metric']['name'] not in accepted_metrics:
+            continue
+        if vdrp_measurement_doc['value'] is None:
             continue
         measurements.append(shim_vdrp_measurement(vdrp_measurement_doc))
     job_json['measurements'] = measurements

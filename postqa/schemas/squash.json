@@ -15,10 +15,7 @@
             "type": "string"
           },
           "value": {
-            "oneOf": [
-              {"type": "number"},
-              {"type": "null"}
-            ]
+            "type": "number"
           }
         }
       }
