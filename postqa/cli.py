@@ -22,7 +22,8 @@ def run_post_qa():
     """CLI entrypoint for the ``post-qa`` command."""
     args = parse_args()
 
-    job_json = build_job_json(args.qa_json_path, args.lsstsw_dirname)
+    job_json = build_job_json(args.qa_json_path, args.lsstsw_dirname,
+                              args.accepted_metrics)
 
     if not args.test:
         upload_json(job_json, api_url=args.api_url,
@@ -72,6 +73,12 @@ and uses the following environment variables:
         required=True,
         help='Password for SQuaSH API')
     parser.add_argument(
+        '--metrics',
+        dest='accepted_metrics',
+        nargs='*',
+        default=('PA1', 'AM1', 'AM2'),
+        help='List metric names to upload (e.g., --metrics AM1 PA1)')
+    parser.add_argument(
         '--test',
         default=False,
         action='store_true',
@@ -79,14 +86,14 @@ and uses the following environment variables:
     return parser.parse_args()
 
 
-def build_job_json(qa_json_path, lsstsw_dirname):
+def build_job_json(qa_json_path, lsstsw_dirname, accepted_metrics):
     """Build a json message for SQUASH's /api/jobs endpoint from
     validate_drp-type JSON data.
     """
     # Shim validate_drp's JSON to SQuaSH measurements format
     with open(qa_json_path) as f:
         qa_json = json.load(f, encoding='utf-8')
-    job_json = jsonshim.shim_validate_drp(qa_json)
+    job_json = jsonshim.shim_validate_drp(qa_json, accepted_metrics)
 
     # Add 'packages' sub-document
     lsstsw_install = lsstsw.Lsstsw(lsstsw_dirname)

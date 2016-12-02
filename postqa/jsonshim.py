@@ -9,8 +9,7 @@ from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
 
-def shim_validate_drp(vdrp_json,
-                      accepted_metrics=('PA1', 'AM1', 'AM2', 'AM3')):
+def shim_validate_drp(vdrp_json, accepted_metrics):
     """Convert JSON structure from validate DRP into the JSON expected by
     SQuaSH's POST /api/jobs/ endpoint.
 

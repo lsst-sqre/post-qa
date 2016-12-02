@@ -20,7 +20,7 @@ def schema():
 
 @pytest.fixture()
 def job_json(vdrp_cfht_output_r):
-    return shim_validate_drp(vdrp_cfht_output_r)
+    return shim_validate_drp(vdrp_cfht_output_r, ('PA1', 'AM1', 'AM2'))
 
 
 def test_measurements_schema(job_json, schema):
@@ -31,8 +31,7 @@ def test_measurements_schema(job_json, schema):
 def test_accepted_metrics(vdrp_cfht_output_r, schema):
     """Ensure only accepted metrics are returned."""
     accepted_metrics = ['PA1']
-    job_json = shim_validate_drp(vdrp_cfht_output_r,
-                                 accepted_metrics=accepted_metrics)
+    job_json = shim_validate_drp(vdrp_cfht_output_r, accepted_metrics)
     for measurement in job_json['measurements']:
         assert measurement['metric'] in accepted_metrics
 
@@ -41,14 +40,14 @@ def test_missing_measurements(vdrp_cfht_output_r):
     """Test when input has no measurements field."""
     del vdrp_cfht_output_r['measurements']
     with pytest.raises(KeyError):
-        shim_validate_drp(vdrp_cfht_output_r)
+        shim_validate_drp(vdrp_cfht_output_r, ('PA1', 'AM1', 'AM2'))
 
 
 def test_missing_value(vdrp_cfht_output_r):
     """Test when a measurement is missing its value field."""
     del vdrp_cfht_output_r['measurements'][0]['value']
     with pytest.raises(KeyError):
-        shim_validate_drp(vdrp_cfht_output_r)
+        shim_validate_drp(vdrp_cfht_output_r, ('PA1', 'AM1', 'AM2'))
 
 
 def test_missing_value_validation(job_json, schema):
