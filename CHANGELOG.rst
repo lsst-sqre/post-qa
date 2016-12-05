@@ -2,6 +2,15 @@
 Change Log
 ##########
 
+1.2.2 [2016-12-05]
+==================
+
+- Add --metrics CLI flag: allows us to customize what metrics are submitted from the command line invocation.
+- Also removes AM3 from the default upload list.
+- Omit measurements with None values from upload: needed for SQUASH API compatibility.
+- Raise and print any requests exceptions when posting to the SQUASH API.
+- Centralize dependencies in setup.py.
+
 1.2.1 [2016-11-28]
 ==================
 

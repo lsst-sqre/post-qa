@@ -19,7 +19,9 @@ def test_build_job_json(mocker, qa_json_path, lsstsw_dir):
     mocker.patch('postqa.lsstsw.git.Repo')
     postqa.lsstsw.git.Repo.return_value.active_branch.name = 'master'
 
-    job_json = postqa.cli.build_job_json(qa_json_path, lsstsw_dir)
+    accepted_metrics = ('AM1', 'AM2', 'PA1')
+    job_json = postqa.cli.build_job_json(qa_json_path, lsstsw_dir,
+                                         accepted_metrics)
 
     schema = load_squash_job_schema()
     jsonschema.validate(job_json, schema)
@@ -40,7 +42,9 @@ def test_upload_json(mocker, qa_json_path, lsstsw_dir):
                   body='{}', status=201,
                   content_type='application/json')
 
-    job_json = postqa.cli.build_job_json(qa_json_path, lsstsw_dir)
+    accepted_metrics = ('AM1', 'AM2', 'PA1')
+    job_json = postqa.cli.build_job_json(qa_json_path, lsstsw_dir,
+                                         accepted_metrics)
 
     postqa.cli.upload_json(job_json, api_url, api_user, api_password)
 
