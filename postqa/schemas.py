@@ -10,28 +10,28 @@ import pkg_resources
 import jsonschema
 
 
-def validate(doc, schema=None):
+def validate(doc, schema):
     """Validate a document against a schema.
 
     This function ensures that additional format checkers (for datetime
     and URIs) are active.
     """
-    if schema is None:
-        schema = load_squash_job_schema()
+    schema = load_schema(schema)
     format_checker = jsonschema.FormatChecker()
     jsonschema.validate(doc, schema, format_checker=format_checker)
 
 
-def load_squash_job_schema():
-    """Load JSON schema for a SQUASH job upload."""
-    data = pkg_resources.resource_string(__name__, 'schemas/squash.json')
+def load_schema(schema):
+    """Load JSON schema for a SQUASH metric upload."""
+    data = pkg_resources.resource_string(__name__,
+                                         'schemas/{}.json'.format(schema))
     return json.loads(data.decode('utf-8'))
 
 
 def load_squash_measurements_schema():
     """Load JSON schema for the **measurements** object in a SQUASH job upload.
     """
-    job_schema = load_squash_job_schema()
+    job_schema = load_schema(schema='job')
 
     m_schema = {
         "$schema": "http://json-schema.org/draft-04/schema#",
@@ -47,7 +47,7 @@ def load_squash_measurements_schema():
 def load_squash_packages_schema():
     """Load JSON schema for the **packages** object in a SQUASH job upload.
     """
-    job_schema = load_squash_job_schema()
+    job_schema = load_schema(schema='job')
 
     m_schema = {
         "$schema": "http://json-schema.org/draft-04/schema#",
