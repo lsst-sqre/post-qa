@@ -16,7 +16,6 @@ def validate(doc, schema):
     This function ensures that additional format checkers (for datetime
     and URIs) are active.
     """
-    schema = load_schema(schema)
     format_checker = jsonschema.FormatChecker()
     jsonschema.validate(doc, schema, format_checker=format_checker)
 

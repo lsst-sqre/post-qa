@@ -15,7 +15,7 @@ import requests
 from . import jsonshim
 from . import lsstsw
 from . import jenkinsenv
-from .schemas import validate
+from .schemas import load_schema, validate
 
 
 def run_post_qa():
@@ -109,8 +109,11 @@ def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics):
     job_json.update(jenkins.json)
 
     # Validate
-    validate(metric_json, schema='metric')
-    validate(job_json, schema='job')
+    metric_schema = load_schema(schema='metric')
+    validate(metric_json, metric_schema)
+
+    job_schema = load_schema(schema='job')
+    validate(job_json, job_schema)
 
     return metric_json, job_json
 
