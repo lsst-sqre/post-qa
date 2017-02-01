@@ -9,27 +9,30 @@ install_aliases()  # NOQA
 import jsonschema
 import responses
 
-from postqa.schemas import load_squash_job_schema
+from postqa.schemas import load_schema
 import postqa.cli
 import postqa.lsstsw
 
 
-def test_build_job_json(mocker, qa_json_path, lsstsw_dir):
+def test_build_json_docs(mocker, qa_json_path, lsstsw_dir):
     # Mock the git repos on the file system
     mocker.patch('postqa.lsstsw.git.Repo')
     postqa.lsstsw.git.Repo.return_value.active_branch.name = 'master'
 
-    accepted_metrics = ('AM1', 'AM2', 'PA1')
-    job_json = postqa.cli.build_job_json(qa_json_path, lsstsw_dir,
-                                         accepted_metrics)
-
-    schema = load_squash_job_schema()
-    jsonschema.validate(job_json, schema)
+    registered_metrics = ['AM1', 'AM2', 'PA1']
+    metric_json, job_json = postqa.cli.build_json_docs(qa_json_path,
+                                                       lsstsw_dir,
+                                                       registered_metrics)
+    metric_schema = load_schema(schema='metric')
+    jsonschema.validate(metric_json, metric_schema)
+    job_schema = load_schema(schema='job')
+    jsonschema.validate(job_json, job_schema)
 
 
 @responses.activate
 def test_upload_json(mocker, qa_json_path, lsstsw_dir):
-    api_url = 'https://squash.lsst.codes/api/jobs'
+    api_url = 'https://squash.lsst.codes/dashboard/api/jobs'
+    api_job_endpoint = 'jobs'
     api_user = 'user'
     api_password = 'password'
 
@@ -42,11 +45,13 @@ def test_upload_json(mocker, qa_json_path, lsstsw_dir):
                   body='{}', status=201,
                   content_type='application/json')
 
-    accepted_metrics = ('AM1', 'AM2', 'PA1')
-    job_json = postqa.cli.build_job_json(qa_json_path, lsstsw_dir,
-                                         accepted_metrics)
+    registered_metrics = ['AM1', 'AM2', 'PA1']
+    _, job_json = postqa.cli.build_json_docs(qa_json_path,
+                                             lsstsw_dir,
+                                             registered_metrics)
 
-    postqa.cli.upload_json(job_json, api_url, api_user, api_password)
+    postqa.cli.upload_json_doc(job_json, api_url, api_job_endpoint,
+                               api_user, api_password)
 
     assert len(responses.calls) == 1
     assert responses.calls[0].request.url == api_url
