@@ -9,7 +9,7 @@ from future.standard_library import install_aliases
 install_aliases()  # NOQA
 
 
-def shim_validate_drp(vdrp_json, registered_metrics):
+def shim_validate_drp(vdrp_json, registered_metrics=[]):
     """Convert JSON structure from validate DRP into the JSON documents
     expected by SQuaSH's API.
 
