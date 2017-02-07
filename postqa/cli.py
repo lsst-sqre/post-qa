@@ -90,7 +90,7 @@ and uses the following environment variables:
     return parser.parse_args()
 
 
-def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics):
+def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics=[]):
     """Build a json message for SQUASH's /api/jobs endpoint from
     validate_drp-type JSON data.
     """
@@ -121,10 +121,10 @@ def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics):
 def load_registered_metrics(api_url):
     """Return list of metrics registered in SQuaSH.
     """
-    api = requests.get(api_url).json()
+    metric_endpoint_url = requests.get(api_url).json()['metrics']
 
     try:
-        r = requests.get(api['metrics'])
+        r = requests.get(metric_endpoint_url)
         r.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(e)
@@ -135,18 +135,18 @@ def load_registered_metrics(api_url):
     return registered_metrics
 
 
-def upload_json_doc(json_doc, api_url, api_endpoint, api_user, api_password):
+def upload_json_doc(json_doc, api_url, api_endpoint, api_user=None, api_password=None):
     """Upload json document to SQuaSH through a POST request to the
     API endpoint.
     """
 
-    api = requests.get(api_url).json()
+    api_endpoint_url = requests.get(api_url).json()[api_endpoint]
 
     try:
-        r = requests.post(api[api_endpoint],
+        r = requests.post(api_endpoint_url,
                           auth=(api_user, api_password),
                           json=json_doc)
-        print('POST {0} status: {1}'.format(api[api_endpoint], r.status_code))
+        print('POST {0} status: {1}'.format(api_endpoint_url, r.status_code))
         r.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(json.dumps(json_doc))

@@ -1,0 +1,115 @@
+{
+  "count": 9,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "metric": "AD1",
+      "unit": "marcsec",
+      "description": "No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).",
+      "operator": "<=",
+      "parameters": "{'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}",
+      "specs": "[{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {'AF1': {'operator_str': '<=', 'description': 'The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)\\n', 'specifications': [{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AF1', 'parameters': {'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {'AF1': {'operator_str': '<=', 'description': 'The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)\\n', 'specifications': [{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AF1', 'parameters': {'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {'AF1': {'operator_str': '<=', 'description': 'The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)\\n', 'specifications': [{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AF1', 'parameters': {'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'stretch'}]",
+      "reference": "{'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/AD1/"
+      }
+    },
+    {
+      "metric": "AD2",
+      "unit": "marcsec",
+      "description": "No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).",
+      "operator": "<=",
+      "parameters": "{'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}",
+      "specs": "[{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {'AF2': {'operator_str': '<=', 'description': 'The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)\\n', 'specifications': [{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AF2', 'parameters': {'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {'AF2': {'operator_str': '<=', 'description': 'The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)\\n', 'specifications': [{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AF2', 'parameters': {'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {'AF2': {'operator_str': '<=', 'description': 'The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)\\n', 'specifications': [{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AF2', 'parameters': {'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'stretch'}]",
+      "reference": "{'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/AD2/"
+      }
+    },
+    {
+      "metric": "AF1",
+      "unit": "",
+      "description": "The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)",
+      "operator": "<=",
+      "parameters": "{'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}",
+      "specs": "[{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {'AD1': {'operator_str': '<=', 'description': 'No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).\\n', 'specifications': [{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AD1', 'parameters': {'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {'AD1': {'operator_str': '<=', 'description': 'No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).\\n', 'specifications': [{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AD1', 'parameters': {'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {'AD1': {'operator_str': '<=', 'description': 'No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).\\n', 'specifications': [{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AD1', 'parameters': {'x': {'label': None, 'value': 1, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 5.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'stretch'}]",
+      "reference": "{'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/AF1/"
+      }
+    },
+    {
+      "metric": "AF2",
+      "unit": "",
+      "description": "The maximum fraction of astrometric distances which deviate by more than ADx milliarcsec (see AMx) (%)",
+      "operator": "<=",
+      "parameters": "{'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}",
+      "specs": "[{'value': 10.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {'AD2': {'operator_str': '<=', 'description': 'No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).\\n', 'specifications': [{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AD2', 'parameters': {'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'design'}, {'value': 20.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {'AD2': {'operator_str': '<=', 'description': 'No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).\\n', 'specifications': [{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AD2', 'parameters': {'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': ['r', 'i'], 'unit': '', 'dependencies': {'AD2': {'operator_str': '<=', 'description': 'No more than AFx of the astrometric distances will deviate by more than this from the median (see AMx, AFx) (milliarcsec).\\n', 'specifications': [{'value': 20.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'design'}, {'value': 40.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['r', 'i'], 'unit': 'marcsec', 'dependencies': {}, 'name': 'stretch'}], 'name': 'AD2', 'parameters': {'x': {'label': None, 'value': 2, 'unit': '', 'description': None}, 'D': {'label': None, 'value': 20.0, 'unit': 'arcmin', 'description': None}}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}}}, 'name': 'stretch'}]",
+      "reference": "{'url': 'http://ls.st/lpm-17', 'page': 23, 'doc': 'LPM-17'}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/AF2/"
+      }
+    },
+    {
+      "metric": "AM1",
+      "unit": "marcsec",
+      "description": "The maximum rms of the astrometric distance distribution for stellar pairs with separations of D=5 arcmin (repeatability) (milliarcsec).",
+      "operator": "<",
+      "parameters": "{'D': {'unit': 'arcmin', 'description': None, 'value': 5.0, 'label': None}}",
+      "specs": "[{'unit': 'marcsec', 'filter_names': ['r', 'i'], 'dependencies': {}, 'value': 10.0, 'name': 'design'}, {'unit': 'marcsec', 'filter_names': ['r', 'i'], 'dependencies': {}, 'value': 20.0, 'name': 'minimum'}, {'unit': 'marcsec', 'filter_names': ['r', 'i'], 'dependencies': {}, 'value': 5.0, 'name': 'stretch'}]",
+      "reference": "{'doc': 'LPM-17', 'url': 'http://ls.st/lpm-17', 'page': 23}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/AM1/"
+      }
+    },
+    {
+      "metric": "AM2",
+      "unit": "marcsec",
+      "description": "The maximum rms of the astrometric distance distribution for stellar pairs with separations of D=20 arcmin (repeatability) (milliarcsec).\\n",
+      "operator": "<",
+      "parameters": "{'D': {'unit': 'arcmin', 'description': None, 'value': 20.0, 'label': None}}",
+      "specs": "[{'unit': 'marcsec', 'filter_names': ['r', 'i'], 'dependencies': {}, 'value': 10.0, 'name': 'design'}, {'unit': 'marcsec', 'filter_names': ['r', 'i'], 'dependencies': {}, 'value': 20.0, 'name': 'minimum'}, {'unit': 'marcsec', 'filter_names': ['r', 'i'], 'dependencies': {}, 'value': 5.0, 'name': 'stretch'}]",
+      "reference": "{'doc': 'LPM-17', 'url': 'http://ls.st/lpm-17', 'page': 23}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/AM2/"
+      }
+    },
+    {
+      "metric": "PA1",
+      "unit": "mmag",
+      "description": "The maximum rms of the unresolved source magnitude distribution around the mean value (repeatability).",
+      "operator": "<",
+      "parameters": "{}",
+      "specs": "[{'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'value': 5.0, 'name': 'design'}, {'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'value': 8.0, 'name': 'minimum'}, {'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'value': 3.0, 'name': 'stretch'}]",
+      "reference": "{'doc': 'LPM-17', 'url': 'http://ls.st/lpm-17', 'page': 21}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/PA1/"
+      }
+    },
+    {
+      "metric": "PA2",
+      "unit": "mmag",
+      "description": "At most PF1 % of magnitudes may deviate by more than this from the mean (millimag).",
+      "operator": "<=",
+      "parameters": "{}",
+      "specs": "[{'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {'PF1': {'operator_str': '<=', 'description': 'The maximum fraction of magnitudes deviating by more than PA2 from mean (%).\\n', 'specifications': [{'value': 10.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PF1', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'design'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {'PF1': {'operator_str': '<=', 'description': 'The maximum fraction of magnitudes deviating by more than PA2 from mean (%).\\n', 'specifications': [{'value': 10.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PF1', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'design'}, {'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {'PF1': {'operator_str': '<=', 'description': 'The maximum fraction of magnitudes deviating by more than PA2 from mean (%).\\n', 'specifications': [{'value': 10.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PF1', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'minimum'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {'PF1': {'operator_str': '<=', 'description': 'The maximum fraction of magnitudes deviating by more than PA2 from mean (%).\\n', 'specifications': [{'value': 10.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PF1', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {'PF1': {'operator_str': '<=', 'description': 'The maximum fraction of magnitudes deviating by more than PA2 from mean (%).\\n', 'specifications': [{'value': 10.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PF1', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'stretch'}, {'value': 15.0, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {'PF1': {'operator_str': '<=', 'description': 'The maximum fraction of magnitudes deviating by more than PA2 from mean (%).\\n', 'specifications': [{'value': 10.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'design'}, {'value': 20.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': None, 'unit': '', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PF1', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'stretch'}]",
+      "reference": "{'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/PA2/"
+      }
+    },
+    {
+      "metric": "PF1",
+      "unit": "",
+      "description": "The maximum fraction of magnitudes deviating by more than PA2 from mean (%).",
+      "operator": "<=",
+      "parameters": "{}",
+      "specs": "[{'value': 10.0, 'filter_names': None, 'unit': '', 'dependencies': {'PA2': {'operator_str': '<=', 'description': 'At most PF1 % of magnitudes may deviate by more than this from the mean (millimag).\\n', 'specifications': [{'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'design'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'design'}, {'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'minimum'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'stretch'}, {'value': 15.0, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PA2', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'design'}, {'value': 20.0, 'filter_names': None, 'unit': '', 'dependencies': {'PA2': {'operator_str': '<=', 'description': 'At most PF1 % of magnitudes may deviate by more than this from the mean (millimag).\\n', 'specifications': [{'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'design'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'design'}, {'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'minimum'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'stretch'}, {'value': 15.0, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PA2', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'minimum'}, {'value': 5.0, 'filter_names': None, 'unit': '', 'dependencies': {'PA2': {'operator_str': '<=', 'description': 'At most PF1 % of magnitudes may deviate by more than this from the mean (millimag).\\n', 'specifications': [{'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'design'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'design'}, {'value': 15.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'minimum'}, {'value': 22.5, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'minimum'}, {'value': 10.0, 'filter_names': ['g', 'r', 'i'], 'unit': 'mmag', 'dependencies': {}, 'name': 'stretch'}, {'value': 15.0, 'filter_names': ['u', 'z', 'y'], 'unit': 'mmag', 'dependencies': {}, 'name': 'stretch'}], 'name': 'PA2', 'parameters': {}, 'reference': {'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}}}, 'name': 'stretch'}]",
+      "reference": "{'url': 'http://ls.st/lpm-17', 'page': 21, 'doc': 'LPM-17'}",
+      "links": {
+        "self": "http://localhost:8000/dashboard/api/metrics/PF1/"
+      }
+    }
+  ]
+}

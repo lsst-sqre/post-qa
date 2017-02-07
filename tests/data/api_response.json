@@ -1,0 +1,6 @@
+{
+  "jobs": "http://squash.lsst.codes/dashboard/api/jobs/",
+  "metrics": "http://squash.lsst.codes/dashboard/api/metrics/",
+  "measurements": "http://squash.lsst.codes/dashboard/api/measurements/",
+  "datasets": "http://squash.lsst.codes/dashboard/api/datasets/"
+}

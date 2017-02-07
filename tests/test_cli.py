@@ -19,10 +19,8 @@ def test_build_json_docs(mocker, qa_json_path, lsstsw_dir):
     mocker.patch('postqa.lsstsw.git.Repo')
     postqa.lsstsw.git.Repo.return_value.active_branch.name = 'master'
 
-    registered_metrics = ['AM1', 'AM2', 'PA1']
     metric_json, job_json = postqa.cli.build_json_docs(qa_json_path,
-                                                       lsstsw_dir,
-                                                       registered_metrics)
+                                                       lsstsw_dir)
     metric_schema = load_schema(schema='metric')
     jsonschema.validate(metric_json, metric_schema)
     job_schema = load_schema(schema='job')
@@ -30,28 +28,68 @@ def test_build_json_docs(mocker, qa_json_path, lsstsw_dir):
 
 
 @responses.activate
-def test_upload_json(mocker, qa_json_path, lsstsw_dir):
-    api_url = 'https://squash.lsst.codes/dashboard/api/jobs'
-    api_job_endpoint = 'jobs'
-    api_user = 'user'
-    api_password = 'password'
+def test_load_registered_metrics():
+    api_url = 'http://squash.lsst.codes/dashboard/api/'
+    metric_endpoint_url = 'http://squash.lsst.codes/dashboard/api/metrics/'
+
+    # Mock requests
+    with open("tests/data/api_response.json") as f:
+        api_response = f.read()
+
+    responses.add(responses.GET, api_url,
+                  body=api_response, status=200,
+                  content_type='application/json')
+
+    with open("tests/data/metric_endpoint_response.json") as f:
+        metric_endpoint_response = f.read()
+
+    responses.add(responses.GET, metric_endpoint_url,
+                  body=metric_endpoint_response, status=200,
+                  content_type='application/json')
+
+    postqa.cli.load_registered_metrics(api_url)
+
+    assert len(responses.calls) == 2
+    assert responses.calls[0].request.url == api_url
+    assert responses.calls[0].response.text == api_response
+    assert responses.calls[1].request.url == metric_endpoint_url
+    assert responses.calls[1].response.text == metric_endpoint_response
+
+
+@responses.activate
+def test_upload_json_doc(mocker, qa_json_path, lsstsw_dir):
+    api_url = 'http://squash.lsst.codes/dashboard/api/'
+    metric_endpoint_url = 'http://squash.lsst.codes/dashboard/api/metrics/'
+    job_endpoint_url = 'http://squash.lsst.codes/dashboard/api/jobs/'
 
     # Mock the git repos on the file system
     mocker.patch('postqa.lsstsw.git.Repo')
     postqa.lsstsw.git.Repo.return_value.active_branch.name = 'master'
 
-    # mock requests
-    responses.add(responses.POST, api_url,
+    # Mock requests
+    with open("tests/data/api_response.json") as f:
+        api_response = f.read()
+
+    responses.add(responses.GET, api_url,
+                  body=api_response, status=200,
+                  content_type='application/json')
+
+    responses.add(responses.POST, metric_endpoint_url,
                   body='{}', status=201,
                   content_type='application/json')
 
-    registered_metrics = ['AM1', 'AM2', 'PA1']
-    _, job_json = postqa.cli.build_json_docs(qa_json_path,
-                                             lsstsw_dir,
-                                             registered_metrics)
+    responses.add(responses.POST, job_endpoint_url,
+                  body='{}', status=201,
+                  content_type='application/json')
 
-    postqa.cli.upload_json_doc(job_json, api_url, api_job_endpoint,
-                               api_user, api_password)
+    metric_json, job_json = postqa.cli.build_json_docs(qa_json_path,
+                                                       lsstsw_dir)
 
-    assert len(responses.calls) == 1
+    postqa.cli.upload_json_doc(metric_json, api_url, 'metrics')
+    postqa.cli.upload_json_doc(job_json, api_url, 'jobs')
+
+    assert len(responses.calls) == 4
     assert responses.calls[0].request.url == api_url
+    assert responses.calls[0].response.text == api_response
+    assert responses.calls[1].request.url == metric_endpoint_url
+    assert responses.calls[3].request.url == job_endpoint_url
