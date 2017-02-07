@@ -18,7 +18,6 @@ def read(filename):
         filename)
     return open(full_filename, mode='r', encoding='utf-8').read()
 
-
 long_description = read('README.rst')
 
 
