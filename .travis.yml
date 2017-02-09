@@ -27,4 +27,14 @@ env:
   global:
     - LTD_MASON_BUILD=false  # disable builds in regular text matrix
     - LTD_MASON_PRODUCT="post-qa"
-
+deploy:
+  provider: pypi
+  user: sqre-admin
+  skip_upload_docs: true
+  distributions: sdist bdist_wheel
+  password:
+    # PyPI deployment credentials for sqre-admin
+    secure: "te3dBdyzGPDjYc+UL0LDw/yHHo7Do8MTzAc+T/kpqIcvXGJR+YqJhrD165cVAERpf5o95gCCmWFbTPyLk3Lf78qr9GgNVbkXU38MkvyRn77r4ktf4zxdq7GrBLtS6iUsfmJpvfpjq0GHiZsZd4zIksfqAjoGeX+kTCbot4OZCULzZznfcfbkfwsl2bUnEP5kXL0kzfH52SgpvXM8KlMzAjLs6u8NtL1ReQ6aEJiuISS/7PhU7mb0VgyUthS9TegoL4ELPmQYLZ/aqllygohM8MTldTBiE0X2dZSASMM2cpetTMIEIIIUgC/BQ1QFHM+/Ii/AIyeVxYT8ng7af+EplrHsz9NSjR5NzlSxqvYb2Wzsznk5yvVD/DGzvfnLdz6FGZe45Jnwyj7EARf4ymakTKbybZFPt8KFexKAWXTn2Y6vdbMfNBF/SwCZsB2h2Ow6uj8Hk/uuMDw1g8mMgY/cH4Pi++rWRdVwuB+7s312rAH+wxFt80fKfpd2NqqGJH6AZJ5YBKEVpWA9HPRpAvnGe5NwbcSEX8R/QIxi0oyLzUBct/dxqcRi2+Y+ORs2LjQ7+ZCfilz2Pr7RePqBMos/zhdQL8vb3+ydzkmmcMSTfTP8CNj9V/to6Vzj9kJM6bRI6rY8PPB1ZZYgai60Zd89X88yLgeLHqBzCu3n3RioTF0="
+  on:
+    tags: true
+    repo: lsst-sqre/post-qa
