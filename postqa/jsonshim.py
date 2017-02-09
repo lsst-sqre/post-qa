@@ -24,19 +24,19 @@ def shim_validate_drp(vdrp_json, registered_metrics=[]):
         'blobs': vdrp_json['blobs']
     }
 
-    metrics = []
+    new_metrics_json = []
     measurements = []
     for vdrp_measurement_doc in vdrp_json['measurements']:
         if vdrp_measurement_doc['value'] is None:
             continue
         if vdrp_measurement_doc['metric']['name'] not in registered_metrics:
-            metrics.append(shim_metric_definition(vdrp_measurement_doc))
-            # Make sure a given metric is appended just once
-            # (unique constraint)
+            new_metrics_json.append(shim_metric_definition(vdrp_measurement_doc))
+            # Make sure a given metric is appended just once,
+            # uniqueness constraint, see DM-9330
             registered_metrics.append(vdrp_measurement_doc['metric']['name'])
         measurements.append(shim_vdrp_measurement(vdrp_measurement_doc))
 
-    metric_json = metrics
+    metric_json = new_metrics_json
     job_json['measurements'] = measurements
 
     return metric_json, job_json
@@ -75,8 +75,8 @@ def shim_metric_definition(vdrp_measurement_doc):
         'specs': metric['specifications'],
         'operator': metric['operator_str'],
         'parameters': metric['parameters'],
-        # Unit is being stored as part of the metric specification in
-        # SQuaSH
+        # FIXME Unit is being stored as part of the metric definition
+        # in SQuaSH, see DM-9312
         'unit': vdrp_measurement_doc['unit']
     }
     return metric_json

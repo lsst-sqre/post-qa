@@ -28,11 +28,11 @@ def run_post_qa():
                                             args.lsstsw_dirname,
                                             registered_metrics)
     if not args.test:
-
-        upload_json_doc(metric_json, api_url=args.api_url,
-                        api_endpoint='metrics',
-                        api_user=args.api_user,
-                        api_password=args.api_password)
+        if metric_json:
+            upload_json_doc(metric_json, api_url=args.api_url,
+                            api_endpoint='metrics',
+                            api_user=args.api_user,
+                            api_password=args.api_password)
 
         upload_json_doc(job_json, api_url=args.api_url,
                         api_endpoint='jobs',
@@ -135,7 +135,8 @@ def load_registered_metrics(api_url):
     return registered_metrics
 
 
-def upload_json_doc(json_doc, api_url, api_endpoint, api_user=None, api_password=None):
+def upload_json_doc(json_doc, api_url, api_endpoint,
+                    api_user=None, api_password=None):
     """Upload json document to SQuaSH through a POST request to the
     API endpoint.
     """
