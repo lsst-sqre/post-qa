@@ -9,7 +9,7 @@ author = 'Jonathan Sick'
 author_email = 'jsick@lsst.org'
 license = 'MIT'
 url = 'https://github.com/lsst-sqre/post-qa'
-version = '1.2.2'
+version = '1.3.0'
 
 
 def read(filename):

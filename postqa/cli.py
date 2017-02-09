@@ -15,27 +15,37 @@ import requests
 from . import jsonshim
 from . import lsstsw
 from . import jenkinsenv
-from .schemas import validate
+from .schemas import load_schema, validate
 
 
 def run_post_qa():
     """CLI entrypoint for the ``post-qa`` command."""
     args = parse_args()
 
-    job_json = build_job_json(args.qa_json_path, args.lsstsw_dirname,
-                              args.accepted_metrics)
+    registered_metrics = load_registered_metrics(api_url=args.api_url)
 
+    metric_json, job_json = build_json_docs(args.qa_json_path,
+                                            args.lsstsw_dirname,
+                                            registered_metrics)
     if not args.test:
-        upload_json(job_json, api_url=args.api_url,
-                    api_user=args.api_user, api_password=args.api_password)
+        if metric_json:
+            upload_json_doc(metric_json, api_url=args.api_url,
+                            api_endpoint='metrics',
+                            api_user=args.api_user,
+                            api_password=args.api_password)
+
+        upload_json_doc(job_json, api_url=args.api_url,
+                        api_endpoint='jobs',
+                        api_user=args.api_user,
+                        api_password=args.api_password)
     else:
+        print(json.dumps(metric_json, indent=2, sort_keys=True))
         print(json.dumps(job_json, indent=2, sort_keys=True))
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="""Upload JSON from validate_drp to the SQuaSH API's
-job ingest endpoint, usually ``/api/jobs/``.
+        description="""Upload JSON from validate_drp to the SQuaSH API
 
 This script is meant to be run from a Jenkins CI environment
 and uses the following environment variables:
@@ -61,7 +71,7 @@ and uses the following environment variables:
         '--api-url',
         dest='api_url',
         required=True,
-        help='URL of SQuaSH API endpoint for job submission')
+        help='URL of SQuaSH API')
     parser.add_argument(
         '--api-user',
         dest='api_user',
@@ -73,12 +83,6 @@ and uses the following environment variables:
         required=True,
         help='Password for SQuaSH API')
     parser.add_argument(
-        '--metrics',
-        dest='accepted_metrics',
-        nargs='*',
-        default=('PA1', 'AM1', 'AM2'),
-        help='List metric names to upload (e.g., --metrics AM1 PA1)')
-    parser.add_argument(
         '--test',
         default=False,
         action='store_true',
@@ -86,14 +90,15 @@ and uses the following environment variables:
     return parser.parse_args()
 
 
-def build_job_json(qa_json_path, lsstsw_dirname, accepted_metrics):
+def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics=[]):
     """Build a json message for SQUASH's /api/jobs endpoint from
     validate_drp-type JSON data.
     """
     # Shim validate_drp's JSON to SQuaSH measurements format
     with open(qa_json_path) as f:
         qa_json = json.load(f, encoding='utf-8')
-    job_json = jsonshim.shim_validate_drp(qa_json, accepted_metrics)
+    metric_json, job_json = jsonshim.shim_validate_drp(qa_json,
+                                                       registered_metrics)
 
     # Add 'packages' sub-document
     lsstsw_install = lsstsw.Lsstsw(lsstsw_dirname)
@@ -104,19 +109,47 @@ def build_job_json(qa_json_path, lsstsw_dirname, accepted_metrics):
     job_json.update(jenkins.json)
 
     # Validate
-    validate(job_json)
+    metric_schema = load_schema(schema='metric')
+    validate(metric_json, metric_schema)
 
-    return job_json
+    job_schema = load_schema(schema='job')
+    validate(job_json, job_schema)
+
+    return metric_json, job_json
 
 
-def upload_json(job_json, api_url, api_user, api_password):
-    """Upload Job json document to SQuaSH through POST /api/jobs/ endpoint."""
+def load_registered_metrics(api_url):
+    """Return list of metrics registered in SQuaSH.
+    """
+    metric_endpoint_url = requests.get(api_url).json()['metrics']
+
     try:
-        r = requests.post(api_url,
-                          auth=(api_user, api_password),
-                          json=job_json)
-        print('POST {0} status: {1}'.format(api_url, r.status_code))
+        r = requests.get(metric_endpoint_url)
         r.raise_for_status()
     except requests.exceptions.RequestException as e:
+        print(e)
+        sys.exit(1)
+
+    registered_metrics = [m['metric'] for m in r.json()['results']]
+
+    return registered_metrics
+
+
+def upload_json_doc(json_doc, api_url, api_endpoint,
+                    api_user=None, api_password=None):
+    """Upload json document to SQuaSH through a POST request to the
+    API endpoint.
+    """
+
+    api_endpoint_url = requests.get(api_url).json()[api_endpoint]
+
+    try:
+        r = requests.post(api_endpoint_url,
+                          auth=(api_user, api_password),
+                          json=json_doc)
+        print('POST {0} status: {1}'.format(api_endpoint_url, r.status_code))
+        r.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(json.dumps(json_doc))
         print(e)
         sys.exit(1)

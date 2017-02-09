@@ -2,6 +2,14 @@
 Change Log
 ##########
 
+1.3.0 [2017-02-09]
+==================
+
+- Upload validate_base blobs, measurement metadata and metric definitions to SQUASH
+- --api-url cmd line option now points to SQUASH API root URL (e.g https://squash.lsst.codes/dashboard/api/)
+- Removed --metrics cmd line option, metric definitions are upload dynamically now
+- Added Travis set up for PyPI deployment
+
 1.2.2 [2016-12-05]
 ==================
 

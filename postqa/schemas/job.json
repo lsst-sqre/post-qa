@@ -8,7 +8,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["metric", "value"],
+        "required": ["metric", "value", "metadata"],
         "additionalProperties": false,
         "properties": {
           "metric": {
@@ -16,6 +16,9 @@
           },
           "value": {
             "type": "number"
+          },
+          "metadata": {
+            "type": "object"
           }
         }
       }
@@ -48,7 +51,8 @@
     "ci_dataset",
     "ci_label",
     "ci_url",
-    "status"],
+    "status",
+    "blobs"],
   "additionalProperties": false,
   "properties": {
     "measurements": {"$ref": "#/definitions/measurements"},
@@ -59,6 +63,7 @@
     "ci_dataset": {"type": "string"},
     "ci_label": {"type": "string"},
     "ci_url": {"type": "string", "format": "uri"},
-    "status": {"type": "integer", "enum": [0, 1]}
+    "status": {"type": "integer", "enum": [0, 1]},
+    "blobs": {"type": "array"}
   }
 }
