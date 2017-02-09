@@ -51,7 +51,7 @@ Command Line Interface
 Further Reading
 ===============
 
-- `Metric measurement framework <https://validate-base.lsst.io/>`_.
+- `lsst.validate.base metric measurement framework <https://validate-base.lsst.io/>`_.
 - `SQR-008: SQUASH QA database <http://sqr-008.lsst.io>`_.
 - `SQR-009: SQUASH dashboard prototype <http://sqr-009.lsst.io>`_.
 
