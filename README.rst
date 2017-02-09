@@ -5,8 +5,9 @@
 post-qa
 #######
 
-Upload QA measurements from tools like `validate_drp <https://github.com/lsst/validate_drp>`_ to the SQuaSH database and web app.
-``post-qa`` is meant to run in a CI workflow, like LSST Data Management's Jenkins CI.
+Upload metric definitions, measurements and blobs from `validate_drp <https://github.com/lsst/validate_drp>`_ to
+the `SQuaSH API <https://github.com/lsst-sqre/qa-dashboard>`_. ``post-qa`` is meant to run in a CI workflow, like
+LSST Data Management's Jenkins CI.
 
 Install
 =======
@@ -21,12 +22,10 @@ Command Line Interface
 ::
 
    usage: post-qa [-h] --lsstsw LSSTSW_DIRNAME --qa-json QA_JSON_PATH --api-url
-                  API_URL --api-user API_USER --api-password API_PASSWORD
-                  [--metrics [ACCEPTED_METRICS [ACCEPTED_METRICS ...]]] [--test]
+                  API_URL --api-user API_USER --api-password API_PASSWORD [--test]
    
-   Upload JSON from validate_drp to the SQuaSH API's
-   job ingest endpoint, usually ``/api/jobs/``.
-   
+   Upload JSON from validate_drp to the SQuaSH API.
+
    This script is meant to be run from a Jenkins CI environment
    and uses the following environment variables:
    
@@ -43,23 +42,22 @@ Command Line Interface
                            Path of lsstsw directory
      --qa-json QA_JSON_PATH
                            Filename of QA JSON output file
-     --api-url API_URL     URL of SQuaSH API endpoint for job submission
+     --api-url API_URL     SQuaSH API root URL
      --api-user API_USER   Username for SQuaSH API
      --api-password API_PASSWORD
                            Password for SQuaSH API
-     --metrics [ACCEPTED_METRICS [ACCEPTED_METRICS ...]]
-                           List metric names to upload (e.g., --metrics AM1 PA1)
      --test                Print the shimmed JSON rather than uploading it
 
 Further Reading
 ===============
 
+- `Metric measurement framework <https://validate-base.lsst.io/>`_.
 - `SQR-008: SQUASH QA database <http://sqr-008.lsst.io>`_.
 - `SQR-009: SQUASH dashboard prototype <http://sqr-009.lsst.io>`_.
 
 License Info
 ============
 
-Copyright 2016 AURA/LSST
+Copyright 2017 AURA/LSST
 
 MIT licensed open source.
