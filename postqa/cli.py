@@ -144,9 +144,13 @@ def upload_json_doc(json_doc, api_url, api_endpoint,
     api_endpoint_url = requests.get(api_url).json()[api_endpoint]
 
     try:
+        # disable redirect following for POST as requests will turn a POST into
+        # a GET when following a redirect
+        # https://github.com/kennethreitz/requests/commit/95a03532c36f1afd38c395f7160c7f7086557b7b
         r = requests.post(api_endpoint_url,
                           auth=(api_user, api_password),
-                          json=json_doc)
+                          json=json_doc,
+                          allow_redirects=False)
         print('POST {0} status: {1}'.format(api_endpoint_url, r.status_code))
         r.raise_for_status()
     except requests.exceptions.RequestException as e:
