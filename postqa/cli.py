@@ -118,10 +118,26 @@ def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics=[]):
     return metric_json, job_json
 
 
+# memoizing the return from this method made a mess of testing; need some sort
+# of resetable memoization in order to enable proper testing.
+def get_endpoint_urls(api_url):
+    """Lookup endpoint URL.
+    """
+
+    try:
+        r = requests.get(api_url)
+        r.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(e)
+        sys.exit(1)
+
+    return r.json()
+
+
 def load_registered_metrics(api_url):
     """Return list of metrics registered in SQuaSH.
     """
-    metric_endpoint_url = requests.get(api_url).json()['metrics']
+    metric_endpoint_url = get_endpoint_urls(api_url)['metrics']
 
     try:
         r = requests.get(metric_endpoint_url)
@@ -141,14 +157,24 @@ def upload_json_doc(json_doc, api_url, api_endpoint,
     API endpoint.
     """
 
-    api_endpoint_url = requests.get(api_url).json()[api_endpoint]
+    api_endpoint_url = get_endpoint_urls(api_url)[api_endpoint]
 
     try:
+        # disable redirect following for POST as requests will turn a POST into
+        # a GET when following a redirect
+        # https://github.com/kennethreitz/requests/commit/95a03532c36f1afd38c395f7160c7f7086557b7b
         r = requests.post(api_endpoint_url,
                           auth=(api_user, api_password),
-                          json=json_doc)
+                          json=json_doc,
+                          allow_redirects=False)
         print('POST {0} status: {1}'.format(api_endpoint_url, r.status_code))
         r.raise_for_status()
+
+        # be pedantic about return status. requests#status_code will not error
+        # on 3xx codes
+        if r.status_code != 201:
+            print('Expected 201 -- Got:', r.status_code, r.reason)
+            sys.exit(1)
     except requests.exceptions.RequestException as e:
         print(json.dumps(json_doc))
         print(e)
