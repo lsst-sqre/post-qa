@@ -146,7 +146,7 @@ def load_registered_metrics(api_url):
         print(e)
         sys.exit(1)
 
-    registered_metrics = [m['metric'] for m in r.json()['results']]
+    registered_metrics = [m['metric'] for m in r.json()]
 
     return registered_metrics
 
