@@ -22,10 +22,11 @@ class Lsstsw(object):
     dirname : `str`
         Path of an ``lsstsw`` directory.
     """
-    def __init__(self, dirname):
+    def __init__(self, dirname, probe_git=True):
         super(Lsstsw, self).__init__()
         self._dirname = dirname
         self._load_repos_yaml()
+        self._probe_git = probe_git
 
     @property
     def manifest_path(self):
@@ -63,7 +64,10 @@ class Lsstsw(object):
 
         # Insert git branch information
         for pkg_doc in job_json['packages']:
-            pkg_doc['git_branch'] = self.package_branch(pkg_doc['name'])
+            if self._probe_git:
+                pkg_doc['git_branch'] = self.package_branch(pkg_doc['name'])
+            else:
+                pkg_doc['git_branch'] = 'unknown'
 
         # Insert git repo URLs
         for pkg_doc in job_json['packages']:

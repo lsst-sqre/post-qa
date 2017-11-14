@@ -53,6 +53,29 @@ def test_packages_json_schema(mocker, lsstsw_dir):
     schema = load_squash_packages_schema()
     validate(job_json['packages'], schema)
 
+def test_packages_json_from_git(mocker, lsstsw_dir):
+    """Verify `git_branch` value(s) are coming from git."""
+    # mock git.Repo in postqa.lsstsw so that a repo's active branch is master
+    # and doesn't attempt to actually query the repo in the filesystem.
+    mocker.patch('postqa.lsstsw.git.Repo')
+    postqa.lsstsw.git.Repo.return_value.active_branch.name = 'apples'
+
+    lsstsw = Lsstsw(lsstsw_dir)
+    job_json = lsstsw.json
+
+    assert job_json['packages'][0]['git_branch'] == 'apples'
+
+def test_packages_json_no_git(mocker, lsstsw_dir):
+    """Verify `git_branch` value(s) are *not* coming from git."""
+    # mock git.Repo in postqa.lsstsw so that a repo's active branch is master
+    # and doesn't attempt to actually query the repo in the filesystem.
+    mocker.patch('postqa.lsstsw.git.Repo')
+    postqa.lsstsw.git.Repo.return_value.active_branch.name = 'apples'
+
+    lsstsw = Lsstsw(lsstsw_dir, False)
+    job_json = lsstsw.json
+
+    assert job_json['packages'][0]['git_branch'] == 'unknown'
 
 def test_uri_validation(mocker, lsstsw_dir):
     mocker.patch('postqa.lsstsw.git.Repo')
