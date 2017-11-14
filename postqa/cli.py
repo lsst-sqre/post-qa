@@ -26,6 +26,7 @@ def run_post_qa():
 
     metric_json, job_json = build_json_docs(args.qa_json_path,
                                             args.lsstsw_dirname,
+                                            args.probe_git,
                                             registered_metrics)
     if not args.test:
         if metric_json:
@@ -87,10 +88,25 @@ and uses the following environment variables:
         default=False,
         action='store_true',
         help='Print the shimmed JSON rather than uploading it')
+
+    feature_parser = parser.add_mutually_exclusive_group(required=False)
+    feature_parser.add_argument(
+        '--probe-git',
+        dest='probe_git',
+        action='store_true')
+    feature_parser.add_argument(
+        '--no-probe-git',
+        dest='probe_git',
+        action='store_false')
+    parser.set_defaults(probe_git=True)
     return parser.parse_args()
 
 
-def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics=[]):
+def build_json_docs(
+        qa_json_path,
+        lsstsw_dirname,
+        probe_git=True,
+        registered_metrics=[]):
     """Build a json message for SQUASH's /api/jobs endpoint from
     validate_drp-type JSON data.
     """
@@ -101,7 +117,9 @@ def build_json_docs(qa_json_path, lsstsw_dirname, registered_metrics=[]):
                                                        registered_metrics)
 
     # Add 'packages' sub-document
-    lsstsw_install = lsstsw.Lsstsw(lsstsw_dirname)
+    lsstsw_install = lsstsw.Lsstsw(
+            dirname=lsstsw_dirname,
+            probe_git=probe_git)
     job_json.update(lsstsw_install.json)
 
     # Add metadata from the CI environment
