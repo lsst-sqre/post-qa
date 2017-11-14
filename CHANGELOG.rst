@@ -1,15 +1,21 @@
 ##########
 Change Log
 ##########
+
+1.3.3 [2017-11-14]
+==================
+
+- Add --[no-]probe-git flag
+
 1.3.2 [2017-03-03]
 ==================
 
-- Improved error handling 
+- Improved error handling
 
 1.3.1 [2017-02-09]
 ==================
 
-- Updated README 
+- Updated README
 
 1.3.0 [2017-02-09]
 ==================
